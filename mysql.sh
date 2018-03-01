@@ -1,3 +1,5 @@
+#!/bin/bash
+
 MYSQL_USER=${1:-"root"}
 MYSQL_PASS=${2:-"root"}
 MYSQL_DB=${3:-"example"}
