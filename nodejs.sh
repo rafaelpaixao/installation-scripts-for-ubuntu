@@ -2,7 +2,8 @@
 echo "--- Installation of NodeJS 8 ---"
 echo "Add repo..."
 curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
-sudo bash nodesource_setup.sh
+sudo bash nodesource_setup.sh >/dev/null 2>&1
+sudo rm nodesource_setup.sh
 echo "System update..."
 sudo DEBIAN_FRONTEND=noninteractive apt-get -qq update
 echo "Installing..."
