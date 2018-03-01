@@ -7,8 +7,8 @@ POSTGRES_DB=${3:-"example"}
 echo "--- Installation of PostgreSQL Server ---"
 
 echo "Installing..."
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq --fix-missing --allow-unauthenticated install postgresql > /dev/null 2>&1
-sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq --fix-missing --allow-unauthenticated install postgresql-contrib > /dev/null 2>&1
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq --fix-missing --allow-unauthenticated postgresql > /dev/null 2>&1
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq --fix-missing --allow-unauthenticated postgresql-contrib > /dev/null 2>&1
 echo "Creating user and database..."
 sudo -u postgres sh <<EOF
     psql -c "CREATE USER $POSTGRES_USER PASSWORD '$POSTGRES_PASS'";
