@@ -1,6 +1,6 @@
 #!/bin/bash
 VENV=${1:-"$HOME/.app-venv"}
-PROJECT_DIR=${2:-"$HOME/app"}
+REQUIREMENTS=${2:-"$HOME/app/requirements.txt"}
 install () {
     echo "Installing $@..."
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq --fix-missing --allow-unauthenticated $@
@@ -19,6 +19,6 @@ pip install --upgrade pip
 pip install wheel
 pip install --upgrade setuptools
 echo "Installing the requirements..."
-pip install -r $PROJECT_DIR/requirements.txt
+pip install -r $REQUIREMENTS
 deactivate
 echo "--- All done! ---"
