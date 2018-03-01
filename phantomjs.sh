@@ -1,11 +1,12 @@
 #!/bin/bash
 PHANTOM_VERSION=${1:-2.1.1}
+FILENAME=phantomjs-$PHANTOM_VERSION-linux-x86_64.tar.bz2
 echo "--- Installation of Phantom JS $PHANTOM_VERSION ---"
 echo "Downloading..."
-sudo wget -q https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$PHANTOM_VERSION-linux-x86_64.tar.bz2
+sudo wget -q https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-$FILENAME
 echo "Installing..."
-sudo tar xvjf phantomjs-$PHANTOM_VERSION-linux-x86_64.tar.bz2 -C /usr/local/share/
-sudo ln -s /usr/local/share/phantomjs-$PHANTOM_VERSION-linux-x86_64/bin/phantomjs /usr/local/bin/
+sudo tar xvjf $FILENAME -C /usr/local/share/
+sudo ln -s /usr/local/share/$FILENAME/bin/phantomjs /usr/local/bin/
 echo "Cleaning..."
-sudo rm phantomjs-$PHANTOM_VERSION-linux-x86_64.tar.bz2
+sudo rm $FILENAME
 echo "--- All done! ---"
