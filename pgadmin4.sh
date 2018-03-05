@@ -7,7 +7,7 @@ PG_VERSION=${4:-2.1}
 
 install () {
     echo "Installing $@"
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq --fix-missing --allow-unauthenticated $@ > /dev/null 2>&1
+    sudo apt-get install -qq --fix-missing --allow-unauthenticated $@ > /dev/null 2>&1
 }
 
 echo "--- Installation of PG Admin 4-$PG_VERSION web client as a service ---"

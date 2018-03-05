@@ -1,7 +1,7 @@
 #!/bin/bash
 install () {
     echo "Installing $@..."
-    sudo DEBIAN_FRONTEND=noninteractive apt-get install -qq --fix-missing --allow-unauthenticated $@
+    sudo apt-get install -qq --fix-missing --allow-unauthenticated $@ > /dev/null 2>&1
 }
 install libpq-dev
 install python3
