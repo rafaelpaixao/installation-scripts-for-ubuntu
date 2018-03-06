@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PMA_IP=${1:-0.0.0.0}
-PMA_PORT=${2:-5050}
+PMA_PORT=${2:-4040}
 MYSQL_ROOT_PASS=${3:-"root"}
 
 echo "--- Installation of PHPMyAdmin as a service ---"
