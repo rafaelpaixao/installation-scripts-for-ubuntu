@@ -42,7 +42,10 @@ if [ ! -f /etc/systemd/system/pgadmin4.service ]; then
 
     echo "Creating the service..."
 
-    sudo -u root echo '
+
+    echo "Creating service..."
+    sudo -u root sh <<EOF
+    sudo echo '
     [Unit]
     Description=Pgadmin4 Service
     After=network.target
@@ -50,14 +53,15 @@ if [ ! -f /etc/systemd/system/pgadmin4.service ]; then
     [Service]
     User= root
     Group= root
-    WorkingDirectory='$PG_VENV'
-    Environment="PATH='$PG_VENV'/bin"
-    ExecStart="'$PG_VENV'/lib/python3.5/site-packages/pgadmin4/pgAdmin4.py"
+    WorkingDirectory=$PG_VENV
+    Environment="PATH=$PG_VENV/bin"
+    ExecStart="$PG_VENV/lib/python3.5/site-packages/pgadmin4/pgAdmin4.py"
     PrivateTmp=true
     
     [Install]
     WantedBy=multi-user.target
     ' > /etc/systemd/system/pgadmin4.service
+EOF
 
     sudo -u root systemctl daemon-reload
     sudo -u root systemctl enable pgadmin4
