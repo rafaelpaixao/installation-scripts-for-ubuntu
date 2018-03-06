@@ -1,9 +1,12 @@
+#!/bin/bash
+
 install () {
     echo "Installing $@..."
     sudo apt-get install -qq --fix-missing --allow-unauthenticated $@ > /dev/null 2>&1
 }
 echo "--- Installation of PHP 7 with Composer and Laravel ---"
 
+if ! [ -x "$(command -v laravel)" ]; then 
 install curl
 install unzip
 install python-software-properties
@@ -35,3 +38,6 @@ sudo echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.bashrc
 . ~/.bashrc
 
 echo "--- All done! ---"
+else
+    echo "Laravel is already installed!"
+fi

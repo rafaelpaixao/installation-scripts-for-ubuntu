@@ -6,6 +6,8 @@ POSTGRES_DB=${3:-"example"}
 
 echo "--- Installation of PostgreSQL Server ---"
 
+if ! [ -x "$(command -v psql)" ]; then 
+
 echo "Installing..."
 sudo apt-get install -qq --fix-missing --allow-unauthenticated postgresql > /dev/null 2>&1
 sudo apt-get install -qq --fix-missing --allow-unauthenticated postgresql-contrib > /dev/null 2>&1
@@ -17,3 +19,7 @@ sudo -u postgres sh <<EOF
     psql -c "ALTER USER postgres PASSWORD 'postgres'";
 EOF
 echo "--- All done! ---"
+
+else
+    echo "Postgres is already installed!"
+fi

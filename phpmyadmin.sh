@@ -6,6 +6,7 @@ MYSQL_ROOT_PASS=${3:-"root"}
 
 echo "--- Installation of PHPMyAdmin as a service ---"
 
+if [ ! -f /etc/systemd/system/phpmyadmin.service ]; then
 echo "Configuring..."
 debconf-set-selections <<< "phpmyadmin phpmyadmin/dbconfig-install boolean true"
 debconf-set-selections <<< "phpmyadmin phpmyadmin/app-password-confirm password "$MYSQL_ROOT_PASS
@@ -40,3 +41,7 @@ sudo -u root systemctl enable phpmyadmin
 sudo -u root systemctl start phpmyadmin
 
 echo -e "\nAll done! Go to:\n\thttp://$PMA_IP:$PMA_PORT"
+
+else
+    echo "PHPMyAdmin service already exists!"
+fi
