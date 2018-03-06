@@ -1,9 +1,9 @@
 #!/bin/bash
 
-MYSQL_USER=${1:-"root"}
-MYSQL_PASS=${2:-"root"}
-MYSQL_DB=${3:-"example"}
-MYSQL_ROOT_PASS=${4:-"root"}
+MYSQL_USER=${1:-root}
+MYSQL_PASS=${2:-root}
+MYSQL_DB=${3:-example}
+MYSQL_ROOT_PASS=${4:-root}
 
 echo "--- Installation of MySQL Server ---"
 
