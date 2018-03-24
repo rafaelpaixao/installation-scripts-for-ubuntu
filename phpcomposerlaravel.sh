@@ -24,6 +24,9 @@ if ! [ -x "$(command -v laravel)" ]; then
     install php7.2-gd
     install php7.2-gettext
     install php7.2-zip
+    install php7.2-cli
+    install php7.2-cgi
+    install php7.2-fpm
 
     echo "Installing Composer..."
     curl -sS https://getcomposer.org/installer -o composer-setup.php > /dev/null 2>&1
