@@ -9,4 +9,5 @@ echo "System update..."
 sudo apt-get update > /dev/null 2>&1
 echo "Installing..."
 sudo apt-get install -qq --fix-missing --allow-unauthenticated rabbitmq-server > /dev/null 2>&1
+rabbitmq-plugins enable rabbitmq_management > /dev/null 2>&1
 echo "--- All done! ---"
