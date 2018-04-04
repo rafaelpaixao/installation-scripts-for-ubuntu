@@ -71,7 +71,7 @@ else
         echo "Path for requirements is not defined, skipping..."
     else
         echo "Updating pip..."
-        curl https://bootstrap.pypa.io/get-pip.py | python
+        curl -fsSL https://bootstrap.pypa.io/get-pip.py | python
         pip install --upgrade pip > /dev/null 2>&1
         pip install wheel > /dev/null 2>&1
         pip install --upgrade setuptools > /dev/null 2>&1
