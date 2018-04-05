@@ -12,7 +12,9 @@ echo "Applying some fixes..."
 sudo touch /var/run/supervisor.sock
 sudo chmod 777 /var/run/supervisor.sock
 
-sudo rm /etc/supervisor/supervisor.conf
+if [ -f /tmp/foo.txt ]; then
+    sudo rm /etc/supervisor/supervisor.conf
+fi
 sudo -u root sh <<EOF
 sudo echo "
 [unix_http_server]
