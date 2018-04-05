@@ -47,11 +47,13 @@ addrepo () {
 echo -e "\n--- Installation of Python $version ---"
 if [ "$version" == "3.5" ]; then
     install python3
+    install python3-dev
     install python3-venv
 fi
 if [ "$version" == "3.6" ]; then
     addrepo ppa:deadsnakes/ppa
     install python3.6
+    install python3.6-dev
     install python3.6-venv
 fi
 
