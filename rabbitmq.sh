@@ -1,7 +1,21 @@
 #!/bin/bash
-RABBITUSER=${1:-test}
-RABBITPASS=${2:-test}
-echo "--- Installation of RabbitMQ Server ---"
+
+<<COMMENT
+    params:
+        --user           Username for new admin, optional
+        --pass           Password for the provided user, will use the same value of user if not provided
+COMMENT
+
+echo -e "\n--- Installation of RabbitMQ Server ---\n"
+
+while [ $# -gt 0 ]; do
+   if [[ $1 == *"--"* ]]; then
+        v="${1/--/}"
+        declare $v="$2"
+   fi
+  shift
+done
+
 echo "Add repo..."
 echo 'deb http://www.rabbitmq.com/debian/ testing main' |
      sudo tee /etc/apt/sources.list.d/rabbitmq.list >/dev/null 2>&1
@@ -11,8 +25,18 @@ echo "System update..."
 sudo apt-get update > /dev/null 2>&1
 echo "Installing..."
 sudo apt-get install -qq --fix-missing --allow-unauthenticated rabbitmq-server > /dev/null 2>&1
-sudo rabbitmq-plugins enable rabbitmq_management > /dev/null 2>&1
-sudo rabbitmqctl add_user $RABBITUSER $RABBITPASS
-sudo rabbitmqctl set_user_tags $RABBITUSER administrator
-sudo rabbitmqctl set_permissions -p / $RABBITUSER ".*" ".*" ".*"
-echo "--- All done! ---"
+
+if [ -z ${user+x} ]; then
+    echo "User not defined, skipping..."
+else
+     if [ -z ${pass+x} ]; then
+          echo "Pass not defined, using same value of user..."
+          pass=$user
+     fi
+     sudo rabbitmq-plugins enable rabbitmq_management > /dev/null 2>&1
+     sudo rabbitmqctl add_user $user $pass
+     sudo rabbitmqctl set_user_tags $user administrator
+     sudo rabbitmqctl set_permissions -p / $user ".*" ".*" ".*"
+fi
+
+echo "\n--- All done! ---\n"
