@@ -45,7 +45,11 @@ addrepo () {
 }
 
 echo -e "\n--- Installation of Python $version ---"
+install build-essential
 install libpq-dev
+install libssl-dev
+install libffi-dev
+
 if [ "$version" == "3.5" ]; then
     install python3
     install python3-dev
