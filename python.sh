@@ -45,6 +45,7 @@ addrepo () {
 }
 
 echo -e "\n--- Installation of Python $version ---"
+install libpq-dev
 if [ "$version" == "3.5" ]; then
     install python3
     install python3-dev
@@ -74,11 +75,11 @@ else
     else
         echo "Updating pip..."
         curl -fsSL https://bootstrap.pypa.io/get-pip.py | python
-        pip install --upgrade pip > /dev/null 2>&1
-        pip install wheel > /dev/null 2>&1
-        pip install --upgrade setuptools > /dev/null 2>&1
+        pip install -q --upgrade pip > /dev/null 2>&1
+        pip install -q wheel > /dev/null 2>&1
+        pip install -q --upgrade setuptools > /dev/null 2>&1
         echo "Installing the requirements..."
-        pip install -r $req
+        pip install -q -r $req
     fi
 
     deactivate
