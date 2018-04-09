@@ -6,15 +6,37 @@
         --pass           Password for the provided user, will use the same value of user if not provided
 COMMENT
 
-echo -e "\n--- Installation of RabbitMQ Server ---\n"
-
 while [ $# -gt 0 ]; do
    if [[ $1 == *"--"* ]]; then
         v="${1/--/}"
-        declare $v="$2"
+        if [[ ${#2} != 0 &&  $2 != *"--"* ]]; then
+            declare $v="$2"
+        else
+            declare $v="true"
+        fi
    fi
   shift
 done
+
+APP_NAME="RabbitMQ"
+
+install () {
+    echo "Installing $@..."
+    sudo apt-get install -qq --fix-missing --allow-unauthenticated $@ > /dev/null 2>&1
+}
+
+addrepo () {
+    if ! grep -q "$@" /etc/apt/sources.list; then
+        echo "Adding repository $@..."
+        sudo add-apt-repository -y $@ > /dev/null 2>&1
+        echo "System update..."
+        sudo apt-get update > /dev/null 2>&1
+    else
+        echo "The repository $@  already exists in the source.list!"
+    fi
+}
+
+echo "------ Script for $APP_NAME..."
 
 echo "Add repo..."
 echo 'deb http://www.rabbitmq.com/debian/ testing main' |
@@ -23,8 +45,8 @@ wget -qO- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc |
      sudo apt-key add - >/dev/null 2>&1
 echo "System update..."
 sudo apt-get update > /dev/null 2>&1
-echo "Installing..."
-sudo apt-get install -qq --fix-missing --allow-unauthenticated rabbitmq-server > /dev/null 2>&1
+
+install rabbitmq-server
 
 if [ -z ${user+x} ]; then
     echo "User not defined, skipping..."
@@ -39,4 +61,4 @@ else
      sudo rabbitmqctl set_permissions -p / $user ".*" ".*" ".*"
 fi
 
-echo "\n--- All done! ---\n"
+echo "------ Script for $APP_NAME... Done!"

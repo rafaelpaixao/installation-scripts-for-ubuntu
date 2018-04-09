@@ -11,12 +11,14 @@ COMMENT
 
 
 while [ $# -gt 0 ]; do
-
    if [[ $1 == *"--"* ]]; then
         v="${1/--/}"
-        declare $v="$2"
+        if [[ ${#2} != 0 &&  $2 != *"--"* ]]; then
+            declare $v="$2"
+        else
+            declare $v="true"
+        fi
    fi
-
   shift
 done
 
@@ -27,6 +29,8 @@ fi
 if [ "$version" != "3.6" ]; then
   version="3.5"
 fi
+
+APP_NAME="Python $version"
 
 install () {
     echo "Installing $@..."
@@ -44,7 +48,8 @@ addrepo () {
     fi
 }
 
-echo -e "\n--- Installation of Python $version ---"
+echo "------ Script for $APP_NAME..."
+
 install build-essential
 install libpq-dev
 install libssl-dev
@@ -89,4 +94,4 @@ else
     deactivate
 fi
 
-echo -e "--- All done! ---\n"
+echo "------ Script for $APP_NAME... Done!"
